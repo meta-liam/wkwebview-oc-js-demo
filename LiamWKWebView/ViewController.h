@@ -12,8 +12,8 @@
 
 //@end
 
-@interface ViewController : UIViewController
-{
-    WKWebView *webView;
-}
+@interface ViewController : UIViewController<WKUIDelegate,WKScriptMessageHandler>
+
+@property (strong, nonatomic)  WKWebView *myWebView;
+
 @end

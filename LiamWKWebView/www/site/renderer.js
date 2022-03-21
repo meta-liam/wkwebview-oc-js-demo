@@ -5,34 +5,7 @@
 // selectively enable features needed in the rendering
 // process.
 console.log("---------11111-----------");
-//本方法兼容安卓与iOS
-            function callMobile(handlerInterface,handlerMethod,parameters){
-                //handlerInterface由iOS addScriptMessageHandler与andorid addJavascriptInterface 代码注入而来。
-                var dic = {'handlerInterface':handlerInterface,'function':handlerMethod,'parameters': parameters};
-                
-                if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)){
-                    window.webkit.messageHandlers[handlerInterface].postMessage(dic);
-                }else{
-                    //安卓传输不了js json对象
-                    window[handlerInterface][handlerMethod](JSON.stringify(parameters));
-                }
-            }
 
-            function callMobileNative(handlerInterface,handlerMethod,parameters){
-                callMobile("Native",handlerMethod,parameters);
-            }
-
-function callFunc(){
-                var stack = new Array();
-                stack["first"] = 3;
-                stack["second"] = "second";
-                stack["third"]  = new Date();
-                callMobile("Native","callFunc",stack);
-            }
-
-function NativeCallBack(v){
-                  alert("NativeCallBack:"+v);
-              }
 
 console.log("---------0000-----------");
 var ws ;
