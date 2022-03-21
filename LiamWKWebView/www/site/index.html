@@ -18,83 +18,22 @@
   .inBox{width: 90%; height:50px;}
   .OutBox{overflow-y: scroll;width: 90%; height:150px;border: dashed red;}
 </style>
-<script type="text/javascript">
-    function linkCallMobile(handlerInterface,handlerMethod,parameters){
-        //handlerInterface由iOS addScriptMessageHandler与andorid addJavascriptInterface 代码注入而来。
-        var dic = {'handlerInterface':handlerInterface,'function':handlerMethod,'parameters': parameters};
-        
-        if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)){
-            window.webkit.messageHandlers[handlerInterface].postMessage(dic);
-        }else{
-            //安卓传输不了js json对象
-            window[handlerInterface][handlerMethod](JSON.stringify(parameters));
-        }
-    }
-    function linkCallMobileNative(parameters){
-        linkCallMobile("LinkNative","jsonrpc",parameters);
-    }
-    function linkNativeCallBack(v){
-        alert("linkNativeCallBack:"+v);
-    }
-    function linkTestCall(){
-        linkCallMobileNative('{"jsonrpc":"2.0","method":"say","params":"liam","id":1,"service":"hello-world"}');
-    }
- //----------------------------
-    
-    
-//本方法兼容安卓与iOS
-function callMobile(handlerInterface,handlerMethod,parameters){
-    //handlerInterface由iOS addScriptMessageHandler与andorid addJavascriptInterface 代码注入而来。
-    var dic = {'handlerInterface':handlerInterface,'function':handlerMethod,'parameters': parameters};
-    
-    if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)){
-        window.webkit.messageHandlers[handlerInterface].postMessage(dic);
-    }else{
-        //安卓传输不了js json对象
-        window[handlerInterface][handlerMethod](JSON.stringify(parameters));
-    }
-}
-function callMobileNative(handlerInterface,handlerMethod,parameters){
-    callMobile("Native",handlerMethod,parameters);
-}
 
-function callFunc(){
-    var stack = new Array();
-    stack["first"] = 3;
-    stack["second"] = "second";
-    stack["third"]  = new Date();
-    callMobile("Native","callFunc",stack);
-}
-function testAlert(){
-    alert("h5.捕获了webview的alert");
-}
-  
-  function NativeCallBack(v){
-      alert("NativeCallBack:"+v);
-  }
-
-</script>
   </head>
   <body>
     <h1>Ios-webview-demo</h1>
-    <div class="envBox">15:
-        <input type="button" value="test call mb" onclick="linkTestCall()" />
+    <div class="envBox">
     </div>
     <div class="buttonBox">
       <button id="ts01" >hello</button>
-      <button id="tsCloseWs" >关闭ws</button>    
-      <button id="tsLoadWs" >创建ws</button>
       <button id="tsSayHello" >hello-world.say</button>
-      <button id="tsGetList" >discovery.getNetList</button>
     </div>
 
     <br>
     输入：<button id="tsSend" >发送</button>
     <br>
 
-<textarea id="msgInput" class="inBox">
-  {"jsonrpc":"2.0","method":"say","params":"liam","id":1,"service":"hello-world"}
-</textarea>
+<textarea id="msgInput" class="inBox">{"jsonrpc":"2.0","method":"say","params":"liam","id":1,"service":"hello-world"}</textarea>
 <br>
 输出<br>
 
@@ -103,9 +42,7 @@ function testAlert(){
 </div>
 <script src="./renderer.js"></script>
 <br>
-操作：点击"创建ws"->点击"hello-world.say"
+操作：->点击"hello-world.say"
 <br>
-注意：
-<br>1.要关闭防火墙；
   </body>
 </html>
