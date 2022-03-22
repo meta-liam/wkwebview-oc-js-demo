@@ -32,7 +32,8 @@
     self.myWebView.UIDelegate = self;
     [self.view addSubview:self.myWebView];
     //[self loadTouched:nil];
-    [self loadHtml:@"www/site/index"];
+    [self loadHtml:@"www/app/index"];
+    //[self loadHtml:@"www/site/index"];
     //[self loadHtml:@"www/site/JSWKWebView"];
 }
 
